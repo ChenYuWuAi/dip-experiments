@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MFCApplication2", "MFCApplication2\MFCApplication2.vcxproj", "{599A0922-61A4-DDB0-792B-72662A6A046F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dip_11222118_experiment", "DIPExperimentApplication\DIPExperimentApplication.vcxproj", "{599A0922-61A4-DDB0-792B-72662A6A046F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
