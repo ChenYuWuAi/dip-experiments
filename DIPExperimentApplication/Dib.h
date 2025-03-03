@@ -39,5 +39,7 @@ private:
 	
 private:
 	long *m_pGrayValueCount;
+public:
+	int GetBitCount();
 };
 

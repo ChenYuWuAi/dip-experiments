@@ -100,3 +100,8 @@ long* CDib::GrayValueCount()
 	return pGrayValueCount;
 }
 
+
+int CDib::GetBitCount()
+{
+	return m_nBitCount;
+}

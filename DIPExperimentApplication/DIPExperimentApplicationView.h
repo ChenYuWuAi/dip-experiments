@@ -40,6 +40,8 @@ protected:
 // 生成的消息映射函数
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	void UpdateStatusBar();
 };
 
 #ifndef _DEBUG  // DIPExperimentApplicationView.cpp 中的调试版本

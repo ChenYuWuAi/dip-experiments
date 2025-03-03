@@ -10,6 +10,7 @@
 #include "DIPExperimentApplication.h"
 #endif
 
+#include "MainFrm.h"
 #include "DIPExperimentApplicationDoc.h"
 #include "DIPExperimentApplicationView.h"
 
@@ -61,9 +62,9 @@ void CDIPExperimentApplicationView::OnDraw(CDC* pDC)
 	if (pDoc->m_pDib != nullptr)
 	{
 		pDoc->m_pDib->Draw(pDC->m_hDC, 0, 0);
+		UpdateStatusBar();
 	}
 
-	// TODO: 在此处为本机数据添加绘制代码
 }
 
 
@@ -108,3 +109,27 @@ CDIPExperimentApplicationDoc* CDIPExperimentApplicationView::GetDocument() const
 
 
 // CDIPExperimentApplicationView 消息处理程序
+
+void CDIPExperimentApplicationView::UpdateStatusBar()
+{
+	CDIPExperimentApplicationDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc || !pDoc->m_pDib)
+		return;
+
+	// 获取图像大小和色深位数
+	int width = pDoc->m_pDib->GetWidth();
+	int height = pDoc->m_pDib->GetHeight();
+	int bitCount = pDoc->m_pDib->GetBitCount();
+
+	// 构建状态栏信息字符串
+	CString strStatus;
+	strStatus.Format(_T("大小: %d x %d, 色深: %d 位"), width, height, bitCount);
+
+	// 获取主框架窗口并更新状态栏
+	CMainFrame* pMainFrame = (CMainFrame*)AfxGetMainWnd();
+	if (pMainFrame)
+	{
+		pMainFrame->SetMessageText(strStatus);
+	}
+}

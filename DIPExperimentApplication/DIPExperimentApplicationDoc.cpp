@@ -37,6 +37,11 @@ CDIPExperimentApplicationDoc::CDIPExperimentApplicationDoc() noexcept
 
 CDIPExperimentApplicationDoc::~CDIPExperimentApplicationDoc()
 {
+	if (m_pDib != nullptr)
+	{
+		delete m_pDib;
+		m_pDib = nullptr;
+	}
 }
 
 BOOL CDIPExperimentApplicationDoc::OnNewDocument()
@@ -142,11 +147,19 @@ BOOL CDIPExperimentApplicationDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	if (!CDocument::OnOpenDocument(lpszPathName))
 		return FALSE;
 
+	// 先释放旧的 m_pDib
+	if (m_pDib != nullptr)
+	{
+		delete m_pDib;
+		m_pDib = nullptr;
+	}
 	// 使用Dlib加载BMP文件
 	m_pDib = new CDib();
 
 	if (m_pDib == NULL)
 	{
+		delete m_pDib;
+		m_pDib = nullptr;
 		return FALSE;
 	}
 
