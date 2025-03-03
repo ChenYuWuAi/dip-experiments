@@ -1,16 +1,16 @@
 ﻿
-// MFCApplication2Doc.h: CMFCApplication2Doc 类的接口
+// DIPExperimentApplicationDoc.h: CDIPExperimentApplicationDoc 类的接口
 //
 
 
 #pragma once
 #include "Dib.h"
 
-class CMFCApplication2Doc : public CDocument
+class CDIPExperimentApplicationDoc : public CDocument
 {
 protected: // 仅从序列化创建
-	CMFCApplication2Doc() noexcept;
-	DECLARE_DYNCREATE(CMFCApplication2Doc)
+	CDIPExperimentApplicationDoc() noexcept;
+	DECLARE_DYNCREATE(CDIPExperimentApplicationDoc)
 
 // 特性
 public:
@@ -30,7 +30,7 @@ public:
 
 // 实现
 public:
-	virtual ~CMFCApplication2Doc();
+	virtual ~CDIPExperimentApplicationDoc();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

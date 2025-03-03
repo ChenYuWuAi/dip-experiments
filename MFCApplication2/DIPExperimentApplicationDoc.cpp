@@ -1,5 +1,5 @@
 ﻿
-// MFCApplication2Doc.cpp: CMFCApplication2Doc 类的实现
+// DIPExperimentApplicationDoc.cpp: CDIPExperimentApplicationDoc 类的实现
 //
 
 #include "pch.h"
@@ -7,10 +7,10 @@
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
-#include "MFCApplication2.h"
+#include "DIPExperimentApplication.h"
 #endif
 
-#include "MFCApplication2Doc.h"
+#include "DIPExperimentApplicationDoc.h"
 
 #include <propkey.h>
 
@@ -18,28 +18,28 @@
 #define new DEBUG_NEW
 #endif
 
-// CMFCApplication2Doc
+// CDIPExperimentApplicationDoc
 
-IMPLEMENT_DYNCREATE(CMFCApplication2Doc, CDocument)
+IMPLEMENT_DYNCREATE(CDIPExperimentApplicationDoc, CDocument)
 
-BEGIN_MESSAGE_MAP(CMFCApplication2Doc, CDocument)
-	ON_COMMAND(ID_PROCESS_INVERT, &CMFCApplication2Doc::OnProcessInvert)
+BEGIN_MESSAGE_MAP(CDIPExperimentApplicationDoc, CDocument)
+	ON_COMMAND(ID_PROCESS_INVERT, &CDIPExperimentApplicationDoc::OnProcessInvert)
 END_MESSAGE_MAP()
 
 
-// CMFCApplication2Doc 构造/析构
+// CDIPExperimentApplicationDoc 构造/析构
 
-CMFCApplication2Doc::CMFCApplication2Doc() noexcept
+CDIPExperimentApplicationDoc::CDIPExperimentApplicationDoc() noexcept
 {
 	// TODO: 在此添加一次性构造代码
 
 }
 
-CMFCApplication2Doc::~CMFCApplication2Doc()
+CDIPExperimentApplicationDoc::~CDIPExperimentApplicationDoc()
 {
 }
 
-BOOL CMFCApplication2Doc::OnNewDocument()
+BOOL CDIPExperimentApplicationDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
@@ -53,9 +53,9 @@ BOOL CMFCApplication2Doc::OnNewDocument()
 
 
 
-// CMFCApplication2Doc 序列化
+// CDIPExperimentApplicationDoc 序列化
 
-void CMFCApplication2Doc::Serialize(CArchive& ar)
+void CDIPExperimentApplicationDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
@@ -70,7 +70,7 @@ void CMFCApplication2Doc::Serialize(CArchive& ar)
 #ifdef SHARED_HANDLERS
 
 // 缩略图的支持
-void CMFCApplication2Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
+void CDIPExperimentApplicationDoc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 {
 	// 修改此代码以绘制文档数据
 	dc.FillSolidRect(lprcBounds, RGB(255, 255, 255));
@@ -91,7 +91,7 @@ void CMFCApplication2Doc::OnDrawThumbnail(CDC& dc, LPRECT lprcBounds)
 }
 
 // 搜索处理程序的支持
-void CMFCApplication2Doc::InitializeSearchContent()
+void CDIPExperimentApplicationDoc::InitializeSearchContent()
 {
 	CString strSearchContent;
 	// 从文档数据设置搜索内容。
@@ -101,7 +101,7 @@ void CMFCApplication2Doc::InitializeSearchContent()
 	SetSearchContent(strSearchContent);
 }
 
-void CMFCApplication2Doc::SetSearchContent(const CString& value)
+void CDIPExperimentApplicationDoc::SetSearchContent(const CString& value)
 {
 	if (value.IsEmpty())
 	{
@@ -121,25 +121,23 @@ void CMFCApplication2Doc::SetSearchContent(const CString& value)
 
 #endif // SHARED_HANDLERS
 
-// CMFCApplication2Doc 诊断
+// CDIPExperimentApplicationDoc 诊断
 
 #ifdef _DEBUG
-void CMFCApplication2Doc::AssertValid() const
+void CDIPExperimentApplicationDoc::AssertValid() const
 {
 	CDocument::AssertValid();
 }
 
-void CMFCApplication2Doc::Dump(CDumpContext& dc) const
+void CDIPExperimentApplicationDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
 #endif //_DEBUG
 
 
-// CMFCApplication2Doc 命令
-
-
-BOOL CMFCApplication2Doc::OnOpenDocument(LPCTSTR lpszPathName)
+// CDIPExperimentApplicationDoc 命令
+BOOL CDIPExperimentApplicationDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
 	if (!CDocument::OnOpenDocument(lpszPathName))
 		return FALSE;
@@ -158,9 +156,10 @@ BOOL CMFCApplication2Doc::OnOpenDocument(LPCTSTR lpszPathName)
 }
 
 
-void CMFCApplication2Doc::OnProcessInvert()
+void CDIPExperimentApplicationDoc::OnProcessInvert()
 {
 	if (m_pDib != nullptr)
+
 		m_pDib->Invert();
 	UpdateAllViews(NULL);
 	// TODO: 在此添加命令处理程序代码

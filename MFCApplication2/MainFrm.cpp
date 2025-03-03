@@ -4,7 +4,7 @@
 
 #include "pch.h"
 #include "framework.h"
-#include "MFCApplication2.h"
+#include "DIPExperimentApplication.h"
 
 #include "MainFrm.h"
 

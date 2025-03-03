@@ -1,19 +1,19 @@
 ﻿
-// MFCApplication2View.h: CMFCApplication2View 类的接口
+// DIPExperimentApplicationView.h: CDIPExperimentApplicationView 类的接口
 //
 
 #pragma once
 
 
-class CMFCApplication2View : public CView
+class CDIPExperimentApplicationView : public CView
 {
 protected: // 仅从序列化创建
-	CMFCApplication2View() noexcept;
-	DECLARE_DYNCREATE(CMFCApplication2View)
+	CDIPExperimentApplicationView() noexcept;
+	DECLARE_DYNCREATE(CDIPExperimentApplicationView)
 
 // 特性
 public:
-	CMFCApplication2Doc* GetDocument() const;
+	CDIPExperimentApplicationDoc* GetDocument() const;
 
 // 操作
 public:
@@ -29,7 +29,7 @@ protected:
 
 // 实现
 public:
-	virtual ~CMFCApplication2View();
+	virtual ~CDIPExperimentApplicationView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -42,8 +42,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-#ifndef _DEBUG  // MFCApplication2View.cpp 中的调试版本
-inline CMFCApplication2Doc* CMFCApplication2View::GetDocument() const
-   { return reinterpret_cast<CMFCApplication2Doc*>(m_pDocument); }
+#ifndef _DEBUG  // DIPExperimentApplicationView.cpp 中的调试版本
+inline CDIPExperimentApplicationDoc* CDIPExperimentApplicationView::GetDocument() const
+   { return reinterpret_cast<CDIPExperimentApplicationDoc*>(m_pDocument); }
 #endif
 
