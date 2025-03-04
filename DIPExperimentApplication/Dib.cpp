@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Dib.h"
 
 
@@ -104,4 +104,45 @@ long* CDib::GrayValueCount()
 int CDib::GetBitCount()
 {
 	return m_nBitCount;
+}
+
+void CDib::GenerateColoredBMP(int colorCode) {
+	// 通过调色板生成单色图像
+
+	// 检查图像是否创建成功
+	if (IsNull() || colorCode > 3 || colorCode < 0)
+	{
+		// 处理错误
+		return;
+	}
+
+	RGBQUAD palette[256] = { 0 };
+	for (size_t i = 0; i < 256; i++)
+	{
+		switch (colorCode)
+		{
+		case 0: // 灰度
+			palette[i].rgbRed = i;
+			palette[i].rgbGreen = i;
+			palette[i].rgbBlue = i;
+			break;
+		case 1: // 红色
+			palette[i].rgbRed = i;
+			palette[i].rgbGreen = 0;
+			palette[i].rgbBlue = 0;
+			break;
+		case 2: // 绿色
+			palette[i].rgbRed = 0;
+			palette[i].rgbGreen = i;
+			palette[i].rgbBlue = 0;
+			break;
+		case 3: // 蓝色
+			palette[i].rgbRed = 0;
+			palette[i].rgbGreen = 0;
+			palette[i].rgbBlue = i;
+			break;
+		}
+	}
+
+	SetColorTable(0, 256, palette);  // 设置完整调色板
 }

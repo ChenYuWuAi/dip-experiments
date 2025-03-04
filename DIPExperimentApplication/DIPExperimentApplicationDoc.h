@@ -52,4 +52,5 @@ public:
 	afx_msg void OnGenerateBlue();
 	afx_msg void OnGenerateGreen();
 	afx_msg void OnGenerateRed();
+	afx_msg void OnGenerateGrey();
 };

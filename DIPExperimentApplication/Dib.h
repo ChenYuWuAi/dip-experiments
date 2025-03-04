@@ -41,5 +41,6 @@ private:
 	long *m_pGrayValueCount;
 public:
 	int GetBitCount();
+	void GenerateColoredBMP(int colorCode = 0);
 };
 
