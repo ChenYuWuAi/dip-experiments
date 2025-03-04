@@ -49,4 +49,7 @@ protected:
 public:
 	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
 	afx_msg void OnProcessInvert();
+	afx_msg void OnGenerateBlue();
+	afx_msg void OnGenerateGreen();
+	afx_msg void OnGenerateRed();
 };

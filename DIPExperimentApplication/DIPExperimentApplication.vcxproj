@@ -185,21 +185,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Dib.h" />
+    <ClInclude Include="DIPExperimentApplicationView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="DIPExperimentApplication.h" />
     <ClInclude Include="DIPExperimentApplicationDoc.h" />
-    <ClInclude Include="DIPExperimentApplicationView.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dib.cpp" />
+    <ClCompile Include="DIPExperimentApplicationView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="DIPExperimentApplication.cpp" />
     <ClCompile Include="DIPExperimentApplicationDoc.cpp" />
-    <ClCompile Include="DIPExperimentApplicationView.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
