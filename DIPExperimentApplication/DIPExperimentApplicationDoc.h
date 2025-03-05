@@ -53,4 +53,6 @@ public:
 	afx_msg void OnGenerateGreen();
 	afx_msg void OnGenerateRed();
 	afx_msg void OnGenerateGrey();
+	afx_msg void OnLinearTransform();
+	afx_msg void OnBitplane();
 };

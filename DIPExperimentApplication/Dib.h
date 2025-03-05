@@ -2,6 +2,7 @@
 #include "atlimage.h"
 
 #include <complex>
+#include <vector>
 using namespace std;
 
 #define  MAX_SIZE 1000
@@ -14,7 +15,7 @@ class CDib :
 {
 public:
 	CDib(void);
-	CDib(CDib &Dib);
+	CDib(const CDib &Dib);
 	~CDib(void);
 
 public:
@@ -42,5 +43,7 @@ private:
 public:
 	int GetBitCount();
 	void GenerateColoredBMP(int colorCode = 0);
+	void LinearTransform();
+	void BitPlane(std::vector<CDib>& planes);
 };
 

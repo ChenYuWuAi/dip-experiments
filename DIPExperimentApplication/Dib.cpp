@@ -13,7 +13,7 @@ CDib::CDib(void) :m_pDibBits(NULL), m_pGrayValueCount(NULL)
 }
 
 
-CDib::CDib(CDib& Dib) :m_pDibBits(NULL), m_pGrayValueCount(NULL)
+CDib::CDib(const CDib& Dib) :m_pDibBits(NULL), m_pGrayValueCount(NULL)
 {
 	// initialized variables
 	m_nBitCount = 0;
@@ -145,4 +145,62 @@ void CDib::GenerateColoredBMP(int colorCode) {
 	}
 
 	SetColorTable(0, 256, palette);  // 设置完整调色板
+}
+
+void CDib::LinearTransform()
+{
+	for (int i = 0; i < m_nHeight; i++)
+	{
+		for (int j = 0; j < m_nWidth; j++)
+		{
+			unsigned char& pixel = *(m_pDibBits + i * m_nWidthBytes + j);
+			if (pixel < 100)
+			{
+				pixel = 0;
+			}
+			else if (pixel > 150)
+			{
+				pixel = 255;
+			}
+			else
+			{
+				pixel = static_cast<unsigned char>(100 + (pixel - 100) * (200 - 100) / (150 - 100));
+			}
+		}
+	}
+}
+
+void CDib::BitPlane(std::vector<CDib> &planes) {
+	planes.resize(m_nBitCount);
+
+	for (int i = 0; i < m_nBitCount; ++i) {
+		planes[i].Create(m_nWidth, m_nHeight, 8, 0);
+		planes[i].m_nWidth = m_nWidth;
+		planes[i].m_nHeight = m_nHeight;
+		planes[i].m_nWidthBytes = abs(planes[i].GetPitch());
+		planes[i].m_nBitCount = 8;
+		if (planes[i].IsIndexed())
+		{
+			int nColors = GetMaxColorTableEntries();
+			if (nColors > 0)
+			{
+				RGBQUAD* pal{};
+				pal = new RGBQUAD[nColors];
+				GetColorTable(0, nColors, pal);
+				planes[i].SetColorTable(0, nColors, pal);
+				delete[] pal;
+			}
+		}
+		planes[i].m_pDibBits = (unsigned char*)planes[i].GetBits() + (planes[i].m_nHeight - 1) * planes[i].GetPitch();		
+	}
+
+	for (int i = 0; i < m_nHeight; ++i) {
+		for (int j = 0; j < m_nWidth; ++j) {
+			unsigned char& pixel = *(m_pDibBits + i * m_nWidthBytes + j);
+			for (int k = 0; k < 8; ++k) {
+				unsigned char bit = (pixel >> k) & 1;
+				planes[k].m_pDibBits[i * planes[k].m_nWidthBytes + j] = bit * 255;
+			}
+		}
+	}
 }

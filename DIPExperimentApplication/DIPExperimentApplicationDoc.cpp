@@ -11,6 +11,7 @@
 #endif
 
 #include "DIPExperimentApplicationDoc.h"
+#include "CBitPlaneDlg.h"
 
 #include <propkey.h>
 
@@ -28,6 +29,8 @@ BEGIN_MESSAGE_MAP(CDIPExperimentApplicationDoc, CDocument)
 	ON_COMMAND(ID_GENERATE_GREEN, &CDIPExperimentApplicationDoc::OnGenerateGreen)
 	ON_COMMAND(ID_GENERATE_RED, &CDIPExperimentApplicationDoc::OnGenerateRed)
 	ON_COMMAND(ID_GENERATE_GREY, &CDIPExperimentApplicationDoc::OnGenerateGrey)
+	ON_COMMAND(ID_LINEAR_TRANSFORM, &CDIPExperimentApplicationDoc::OnLinearTransform)
+	ON_COMMAND(ID_BITPLANE, &CDIPExperimentApplicationDoc::OnBitplane)
 END_MESSAGE_MAP()
 
 
@@ -211,4 +214,21 @@ void CDIPExperimentApplicationDoc::OnGenerateGrey()
 	if (m_pDib != nullptr)
 		m_pDib->GenerateColoredBMP(0);
 	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnLinearTransform()
+{
+	if (m_pDib != nullptr)
+		m_pDib->LinearTransform();
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnBitplane()
+{
+	if (m_pDib != nullptr) {
+		std::vector<CDib> bitPlanes;
+		m_pDib->BitPlane(bitPlanes);
+		CBitPlaneDlg dlg(bitPlanes);
+		dlg.DoModal();
+	}
 }
