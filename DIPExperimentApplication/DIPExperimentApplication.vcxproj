@@ -185,6 +185,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBitPlaneDlg.h" />
+    <ClInclude Include="DialogHistogram.h" />
     <ClInclude Include="Dib.h" />
     <ClInclude Include="DIPExperimentApplicationView.h" />
     <ClInclude Include="framework.h" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBitPlaneDlg.cpp" />
+    <ClCompile Include="DialogHistogram.cpp" />
     <ClCompile Include="Dib.cpp" />
     <ClCompile Include="DIPExperimentApplicationView.cpp" />
     <ClCompile Include="MainFrm.cpp" />

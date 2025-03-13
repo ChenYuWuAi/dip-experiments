@@ -15,6 +15,8 @@ protected: // 仅从序列化创建
 // 特性
 public:
 	CDib* m_pDib = nullptr;
+	// 文档路径
+	CString m_strPathName;
 
 // 操作
 public:
@@ -55,4 +57,12 @@ public:
 	afx_msg void OnGenerateGrey();
 	afx_msg void OnLinearTransform();
 	afx_msg void OnBitplane();
+	afx_msg void OnHistogram();
+	afx_msg void OnHistogramBalance();
+	afx_msg void OnRestore();
+	afx_msg void OnSmooth();
+	afx_msg void OnLaplace();
+	afx_msg void OnSoberX();
+	afx_msg void OnSoberY();
+	afx_msg void OnSharpen();
 };

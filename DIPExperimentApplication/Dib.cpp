@@ -204,3 +204,52 @@ void CDib::BitPlane(std::vector<CDib> &planes) {
 		}
 	}
 }
+
+void CDib::HistogramBalance()
+{
+	long* pGrayValueCount = GrayValueCount();
+	long nColors = GetMaxColorTableEntries();
+	if (nColors == 0)
+	{
+		return;
+	}
+	long* pGrayValueCountSum = new long[nColors];
+	memset(pGrayValueCountSum, 0, nColors * sizeof(long));
+	pGrayValueCountSum[0] = pGrayValueCount[0];
+	for (int i = 1; i < nColors; i++)
+	{
+		pGrayValueCountSum[i] = pGrayValueCountSum[i - 1] + pGrayValueCount[i];
+	}
+
+	for (int i = 0; i < m_nHeight; i++)
+	{
+		for (int j = 0; j < m_nWidth; j++)
+		{
+			*(m_pDibBits + i * m_nWidthBytes + j) = static_cast<unsigned char>(255 * pGrayValueCountSum[*(m_pDibBits + i * m_nWidthBytes + j)] / pGrayValueCountSum[nColors - 1]);
+		}
+	}
+	delete[] pGrayValueCount;
+	delete[] pGrayValueCountSum;
+}
+
+void CDib::Kerneling(const int * kernel)
+{
+	// 使用Smoothing_Kernel对图像进行平滑处理
+	unsigned char* pDibBits = new unsigned char[m_nHeight * m_nWidthBytes];
+	memcpy(pDibBits, m_pDibBits, m_nHeight * m_nWidthBytes);
+	for (int i = 1; i < m_nHeight - 1; i++)
+	{
+		for (int j = 1; j < m_nWidth - 1; j++)
+		{
+			int sum = 0;
+			for (int k = -1; k <= 1; k++)
+			{
+				for (int l = -1; l <= 1; l++)
+				{
+					sum += *(pDibBits + (i + k) * m_nWidthBytes + j + l) * kernel[(k + 1) * 3 + l + 1];
+				}
+			}
+			*(m_pDibBits + i * m_nWidthBytes + j) = sum / 9;
+		}
+	}
+}

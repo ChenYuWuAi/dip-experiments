@@ -8,6 +8,10 @@
 #define IDR_MFCApplication2TYPE         130
 #define IDD_DIALOG1                     310
 #define IDD_BITPLANE_DLG                310
+#define IDD_DLG_HISTO                   312
+#define IDC_STATIC_PLANE_INDEX          1001
+#define IDC_BUTTON_PREV                 1002
+#define IDC_BUTTON_NEXT                 1003
 #define ID_32771                        32771
 #define ID_PROCESS_INVERT               32772
 #define ID_32773                        32773
@@ -23,15 +27,28 @@
 #define ID_32783                        32783
 #define ID_LINEAR_TRANSFORM             32784
 #define ID_BITPLANE                     32785
-#define IDC_STATIC_PLANE_INDEX 1001
-#define IDC_BUTTON_PREV 1002
-#define IDC_BUTTON_NEXT 1003
+#define ID_GAUSS                        32786
+#define ID_32787                        32787
+#define ID_32788                        32788
+#define ID_HISTOGRAM                    32789
+#define ID_HISTOGRAM_BALANCE            32790
+#define ID_RESTORE                      32791
+#define ID_SMOOTH                       32792
+#define ID_32793                        32793
+#define ID_32794                        32794
+#define ID_32795                        32795
+#define ID_32796                        32796
+#define ID_SOBER_X                      32797
+#define ID_SOBER_Y                      32798
+#define ID_SHARPEN                      32799
+#define ID_LAPLACE                      32800
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32786
+#define _APS_NEXT_RESOURCE_VALUE        314
+#define _APS_NEXT_COMMAND_VALUE         32801
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

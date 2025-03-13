@@ -12,6 +12,7 @@
 
 #include "DIPExperimentApplicationDoc.h"
 #include "CBitPlaneDlg.h"
+#include "DialogHistogram.h"
 
 #include <propkey.h>
 
@@ -31,6 +32,14 @@ BEGIN_MESSAGE_MAP(CDIPExperimentApplicationDoc, CDocument)
 	ON_COMMAND(ID_GENERATE_GREY, &CDIPExperimentApplicationDoc::OnGenerateGrey)
 	ON_COMMAND(ID_LINEAR_TRANSFORM, &CDIPExperimentApplicationDoc::OnLinearTransform)
 	ON_COMMAND(ID_BITPLANE, &CDIPExperimentApplicationDoc::OnBitplane)
+	ON_COMMAND(ID_HISTOGRAM, &CDIPExperimentApplicationDoc::OnHistogram)
+	ON_COMMAND(ID_HISTOGRAM_BALANCE, &CDIPExperimentApplicationDoc::OnHistogramBalance)
+	ON_COMMAND(ID_RESTORE, &CDIPExperimentApplicationDoc::OnRestore)
+	ON_COMMAND(ID_SMOOTH, &CDIPExperimentApplicationDoc::OnSmooth)
+	ON_COMMAND(ID_LAPLACE, &CDIPExperimentApplicationDoc::OnLaplace)
+	ON_COMMAND(ID_SOBER_X, &CDIPExperimentApplicationDoc::OnSoberX)
+	ON_COMMAND(ID_SOBER_Y, &CDIPExperimentApplicationDoc::OnSoberY)
+	ON_COMMAND(ID_SHARPEN, &CDIPExperimentApplicationDoc::OnSharpen)
 END_MESSAGE_MAP()
 
 
@@ -171,6 +180,7 @@ BOOL CDIPExperimentApplicationDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	}
 
 	m_pDib->LoadFile(lpszPathName);
+	m_strPathName = lpszPathName;
 
 	return TRUE;
 }
@@ -231,4 +241,74 @@ void CDIPExperimentApplicationDoc::OnBitplane()
 		CBitPlaneDlg dlg(bitPlanes);
 		dlg.DoModal();
 	}
+}
+
+void CDIPExperimentApplicationDoc::OnHistogram()
+{
+	if (!m_pDib)
+		return;
+	DialogHistogram dlg(nullptr, m_pDib);
+	dlg.DoModal();
+}
+
+void CDIPExperimentApplicationDoc::OnHistogramBalance()
+{
+	if (!m_pDib)
+		return;
+	m_pDib->HistogramBalance();
+	UpdateAllViews(NULL);
+	DialogHistogram dlg(nullptr, m_pDib);
+	dlg.DoModal();
+}
+
+void CDIPExperimentApplicationDoc::OnRestore()
+{
+	// 重新加载原图
+	if (m_pDib != nullptr)
+	{
+		delete m_pDib;
+		m_pDib = nullptr;
+	}
+	else {
+		return;
+	}
+	// 获取文档路径
+	LPCTSTR lpszPathName = m_strPathName;
+	OnOpenDocument(lpszPathName);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSmooth()
+{
+	if (m_pDib != nullptr)
+		m_pDib->Kerneling(Smoth_Kernel);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnLaplace()
+{
+	if (m_pDib != nullptr)
+		m_pDib->Kerneling(Laplace_Kernel);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSoberX()
+{
+	if (m_pDib != nullptr)
+		m_pDib->Kerneling(Sober_X_Kernel);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSoberY()
+{
+	if (m_pDib != nullptr)
+		m_pDib->Kerneling(Sober_Y_Kernel);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSharpen()
+{
+	if (m_pDib != nullptr)
+		m_pDib->Kerneling(Sharpen_Kernel);
+	UpdateAllViews(NULL);
 }
