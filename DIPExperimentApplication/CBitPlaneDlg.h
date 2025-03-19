@@ -10,7 +10,7 @@
 class CBitPlaneDlg : public CDialogEx {
 public:
     CBitPlaneDlg() = default;
-    CBitPlaneDlg(const std::vector<CDib>& bitPlanes, CWnd* pParent = nullptr);
+    CBitPlaneDlg(const std::vector<CDib>& bitPlanes, CWnd* pParent = nullptr, int size=8);
 
     DECLARE_DYNCREATE(CBitPlaneDlg)
 
@@ -30,6 +30,7 @@ private:
     void UpdateBitPlane();
     std::vector<CDib> m_bitPlanes;
     int m_currentPlane;
+    int m_size;
     CStatic m_planeIndexLabel;
     CButton m_prevButton;
     CButton m_nextButton;

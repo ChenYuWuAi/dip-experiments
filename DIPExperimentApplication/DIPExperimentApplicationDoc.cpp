@@ -40,6 +40,12 @@ BEGIN_MESSAGE_MAP(CDIPExperimentApplicationDoc, CDocument)
 	ON_COMMAND(ID_SOBER_X, &CDIPExperimentApplicationDoc::OnSoberX)
 	ON_COMMAND(ID_SOBER_Y, &CDIPExperimentApplicationDoc::OnSoberY)
 	ON_COMMAND(ID_SHARPEN, &CDIPExperimentApplicationDoc::OnSharpen)
+	ON_COMMAND(ID_SIGMA1, &CDIPExperimentApplicationDoc::OnSigma1)
+	ON_COMMAND(ID_SIGMA5, &CDIPExperimentApplicationDoc::OnSigma5)
+	ON_COMMAND(ID_SIGMA9, &CDIPExperimentApplicationDoc::OnSigma9)
+	ON_COMMAND(ID_SIGMA13, &CDIPExperimentApplicationDoc::OnSigma13)
+	ON_COMMAND(ID_SOBER, &CDIPExperimentApplicationDoc::OnSober)
+	ON_COMMAND(ID_CLAHE, &CDIPExperimentApplicationDoc::OnClahe)
 END_MESSAGE_MAP()
 
 
@@ -281,7 +287,7 @@ void CDIPExperimentApplicationDoc::OnRestore()
 void CDIPExperimentApplicationDoc::OnSmooth()
 {
 	if (m_pDib != nullptr)
-		m_pDib->Kerneling(Smoth_Kernel);
+		m_pDib->Kerneling(Smoth_Kernel, 9);
 	UpdateAllViews(NULL);
 }
 
@@ -309,6 +315,61 @@ void CDIPExperimentApplicationDoc::OnSoberY()
 void CDIPExperimentApplicationDoc::OnSharpen()
 {
 	if (m_pDib != nullptr)
-		m_pDib->Kerneling(Sharpen_Kernel);
+		m_pDib->Kerneling(Sharpen_Kernel, 1, false);
 	UpdateAllViews(NULL);
+}
+
+// 图像平滑函数
+void CDIPExperimentApplicationDoc::SmoothImage(CDib& image, float sigma) {
+	int kernelSize = static_cast<int>(std::ceil(6 * sigma)) | 1; // 确保为奇数
+	std::vector<float> kernel = CDib::GenerateGaussianKernel(kernelSize, sigma);
+	image.SeparableConvolution(kernel);
+	image.MultiThreads_SeparableConvolution(kernel);
+}
+
+void CDIPExperimentApplicationDoc::OnSigma1()
+{
+	if (m_pDib != nullptr)
+		SmoothImage(*m_pDib, 1.0f);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSigma5()
+{
+	if (m_pDib != nullptr)
+		SmoothImage(*m_pDib, 5.0f);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSigma9()
+{
+	if (m_pDib != nullptr)
+		SmoothImage(*m_pDib, 9.0f);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSigma13()
+{
+	if (m_pDib != nullptr)
+		SmoothImage(*m_pDib, 13.0f);
+	UpdateAllViews(NULL);
+}
+
+void CDIPExperimentApplicationDoc::OnSober()
+{
+	if (m_pDib != nullptr) {
+		std::vector<CDib> bitPlanes;
+		bitPlanes.resize(2);
+		m_pDib->SobelTransform(bitPlanes[0], bitPlanes[1]);
+		CBitPlaneDlg dlg(bitPlanes, NULL, 2);
+		dlg.DoModal();
+	}
+}
+
+void CDIPExperimentApplicationDoc::OnClahe()
+{
+	if (m_pDib != nullptr) {
+		m_pDib->CLAHE();
+		UpdateAllViews(NULL);
+	}
 }

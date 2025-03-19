@@ -12,16 +12,16 @@ protected: // 仅从序列化创建
 	CDIPExperimentApplicationDoc() noexcept;
 	DECLARE_DYNCREATE(CDIPExperimentApplicationDoc)
 
-// 特性
+	// 特性
 public:
 	CDib* m_pDib = nullptr;
 	// 文档路径
 	CString m_strPathName;
 
-// 操作
+	// 操作
 public:
 
-// 重写
+	// 重写
 public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
@@ -30,7 +30,7 @@ public:
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
 #endif // SHARED_HANDLERS
 
-// 实现
+	// 实现
 public:
 	virtual ~CDIPExperimentApplicationDoc();
 #ifdef _DEBUG
@@ -40,7 +40,7 @@ public:
 
 protected:
 
-// 生成的消息映射函数
+	// 生成的消息映射函数
 protected:
 	DECLARE_MESSAGE_MAP()
 
@@ -65,4 +65,11 @@ public:
 	afx_msg void OnSoberX();
 	afx_msg void OnSoberY();
 	afx_msg void OnSharpen();
+	afx_msg	void OnSigma1();
+	afx_msg void OnSigma5();
+	afx_msg void OnSigma9();
+	afx_msg void OnSigma13();
+	void SmoothImage(CDib& image, float sigma);
+	afx_msg void OnSober();
+	afx_msg void OnClahe();
 };

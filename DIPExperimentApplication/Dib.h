@@ -5,12 +5,14 @@
 #include <vector>
 using namespace std;
 
+#define M_PI 3.14159265358979323846
 #define  MAX_SIZE 1000
 const int Smoth_Kernel[9] = { 1,1,1,1,1,1,1,1,1 };
 const int Sharpen_Kernel[9] = { 0,-1,0,-1,5,-1,0,-1,0 };
 const int Sober_X_Kernel[9] = { 1,0,-1,2,0,-2,1,0,-1 };
 const int Sober_Y_Kernel[9] = { 1,2,1,0,0,0,-1,-2,-1 };
 const int Laplace_Kernel[9] = { 0,-1,0,-1,4,-1,0,-1,0 };
+const int Laplace_Kernel_4x[9] = { 0, -4, 0, -4, 16, -4, 0, -4, 0 };
 
 #define Pi 3.1415926535897932354626
 #define Ei 2.71828
@@ -51,6 +53,10 @@ public:
 	void LinearTransform();
 	void BitPlane(std::vector<CDib>& planes);
 	void HistogramBalance();
-	void Kerneling(const int* kernel);
+	void Kerneling(const int* kernel, int sum_divide=1, bool normalize=1);
+	static std::vector<float> GenerateGaussianKernel(int size, float sigma);
+	void SeparableConvolution(const std::vector<float>& kernel);
+	void MultiThreads_SeparableConvolution(const std::vector<float>& kernel);
+	void SobelTransform(CDib& gradientMagnitude, CDib& gradientAngle);
+	void CLAHE();
 };
-
